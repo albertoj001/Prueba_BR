@@ -84,8 +84,8 @@ class CustomerServiceTest {
 
     private RestCountriesClient.CountryInfo buildCountryInfo(String demonymValue) {
         RestCountriesClient.CountryInfo info    = new RestCountriesClient.CountryInfo();
-        info.demonyms                           = new RestCountriesClient.CountryInfo.Demonyms();
-        info.demonyms.eng                       = new RestCountriesClient.CountryInfo.Demonyms.DemonymGender();
+        info.demonyms                           = new RestCountriesClient.Demonyms();
+        info.demonyms.eng                       = new RestCountriesClient.English();
         info.demonyms.eng.m                     = demonymValue;
         return info;
     }
@@ -103,7 +103,7 @@ class CustomerServiceTest {
 
             when(customerRepository.findByEmail(req.email)).thenReturn(Optional.empty());
             when(restCountriesClient.getCountryByCode(anyString(), anyString()))
-                .thenReturn(List.of(buildCountryInfo("Dominican")));
+                .thenReturn(buildCountryInfo("Dominican"));
             when(customerMapper.toEntity(req)).thenReturn(entity);
             when(customerMapper.toResponse(entity)).thenReturn(expected);
             doNothing().when(customerRepository).persist(any(Customer.class));
@@ -308,8 +308,8 @@ class CustomerServiceTest {
             expected.demonym = "American";
 
             when(customerRepository.findByIdOptional(id)).thenReturn(Optional.of(existing));
-            when(restCountriesClient.getCountryByCode("US", "demonyms,cca2"))
-                .thenReturn(List.of(buildCountryInfo("American")));
+            when(restCountriesClient.getCountryByCode("US", "demonyms"))
+                .thenReturn(buildCountryInfo("American"));
             doNothing().when(customerMapper).updateEntity(req, existing);
             when(customerMapper.toResponse(existing)).thenReturn(expected);
             doNothing().when(customerRepository).persist(any(Customer.class));

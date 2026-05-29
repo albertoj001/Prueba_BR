@@ -11,14 +11,14 @@ al servicio externo en cada lectura.
 - Java 21 / Quarkus 3.9.4
 - RESTEasy Reactive (JAX-RS) + Jackson
 - Hibernate ORM con Panache
-- H2 en memoria (dev/test), PostgreSQL (prod)
+- SQLite en archivo (dev/local), H2 en memoria (tests), PostgreSQL (prod)
 - MapStruct para el mapeo DTO/entidad
 - MicroProfile REST Client para restcountries.com
 - JUnit 5 + Mockito + RestAssured
 
 ## Cómo correrlo
 
-Dev (H2 en memoria, recrea el schema en cada arranque):
+Dev (SQLite en archivo, conserva `customerdb.db` entre reinicios):
 
 ```bash
 cd customer-api
@@ -26,6 +26,7 @@ mvn quarkus:dev
 ```
 
 Levanta en `http://localhost:8080`. Swagger UI en `/swagger-ui`.
+El archivo `customerdb.db` se crea en la raiz del modulo `customer-api/` y queda ignorado por git.
 
 Empaquetar y correr el jar:
 
@@ -144,7 +145,6 @@ sequenceDiagram
 DB_HOST=... DB_USER=... DB_PASSWORD=... \
   java -Dquarkus.profile=prod -jar target/quarkus-app/quarkus-run.jar
 ```
-
 
 
 

@@ -19,3 +19,9 @@ release.properties
 *.log
 .DS_Store
 Thumbs.db
+
+# SQLite
+*.db
+*.db-journal
+*.db-shm
+*.db-wal
