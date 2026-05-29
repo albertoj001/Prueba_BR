@@ -15,6 +15,7 @@ al servicio externo en cada lectura.
 - MapStruct para el mapeo DTO/entidad
 - MicroProfile REST Client para restcountries.com
 - JUnit 5 + Mockito + RestAssured
+- Sqlite
 
 ## Cómo correrlo
 
